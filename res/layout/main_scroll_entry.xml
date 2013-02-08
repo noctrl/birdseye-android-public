@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:text="Lot Name"
+            android:id="@+id/lotNameTextView"
+            android:textSize="@dimen/lot_name_text"
+            android:layout_marginLeft="@dimen/edge_margin"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:id="@+id/totalSpacesTextView"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/lotNameTextView"
+            android:textSize="@dimen/spaces_total_text"
+            android:layout_marginRight="@dimen/edge_margin"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:id="@+id/separator"
+            android:textSize="@dimen/spaces_divider_text"
+            android:layout_toLeftOf="@+id/totalSpacesTextView"
+            android:layout_alignTop="@+id/lotNameTextView"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="450"
+            android:id="@+id/spacesRemainingTextView"
+            android:textSize="@dimen/spaces_available_text"
+            android:layout_toLeftOf="@+id/separator"
+            android:layout_alignTop="@+id/lotNameTextView"/>
+</RelativeLayout>
