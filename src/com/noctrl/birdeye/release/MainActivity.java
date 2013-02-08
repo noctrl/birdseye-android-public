@@ -22,7 +22,6 @@ public class MainActivity extends Activity{
 
     private ListView listView;
     private LotsAdapter lotsAdapter;
-//    private Lot lots[];
     private List<Lot> lotsList;
 
     @Override
@@ -30,16 +29,8 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-//        this.lots = new Lot[0];
         this.lotsList = new ArrayList<Lot>();
 
-//        Lot lotData[] = new Lot[] {
-//                new Lot("Goldspohn", 14, 42),
-//                new Lot("Old Main", 2, 30),
-//                new Lot("LAC", 20, 68)
-//        };
-
-//        this.lotsAdapter = new LotsAdapter(this, R.layout.main_scroll_entry, lots);
         this.lotsAdapter = new LotsAdapter(this, R.layout.main_scroll_entry, lotsList);
 
         this.listView = (ListView)findViewById(R.id.listView);
@@ -47,7 +38,9 @@ public class MainActivity extends Activity{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Lot lot = (Lot)MainActivity.this.listView.getItemAtPosition(i);
-                MainActivity.this.displayLotActivity(lot.name);
+//                MainActivity.this.displayLotActivity(lot.name);
+//                Lot lot = MainActivity.this.lotsList.get(i);
+                MainActivity.this.displayLotActivity(lot);
             }
         });
         listView.setAdapter(this.lotsAdapter);
@@ -61,12 +54,18 @@ public class MainActivity extends Activity{
         this.startActivity(intent);
     }
 
+    public void displayLotActivity(Lot lot) {
+        Intent intent = new Intent(this, LotActivity.class);
+        intent.putExtra(LotActivity.ARGS_LOT, lot);
+        this.startActivity(intent);
+    }
+
     private class LoadLotsTask extends AsyncTask<Object, Object, ArrayList<Lot>> {
-        public static final String LOTS_RESOURCE = "http://api.birdseye.no-control.net/lots";
+        public static final String LOTS_RESOURCE = "http://api.birdseye.no-control.net/lots?all=true";
 
         @Override
         protected ArrayList<Lot> doInBackground(Object... objects) {
-            RestClient rc = new RestClient("http://api.birdseye.no-control.net/lots");
+            RestClient rc = new RestClient(LOTS_RESOURCE);
             Object json = rc.get();
             JSONArray lotsJsonArray = (JSONArray)json;
             Log.d(LOG_TAG, "Cast to JSONArray done");
@@ -76,11 +75,9 @@ public class MainActivity extends Activity{
         @Override
         protected void onPostExecute(ArrayList<Lot> result) {
             Log.d(LOG_TAG, "in onPostExecute: " + result.toString());
-//            MainActivity.this.lots = new Lot[result.size()];
             for(int i = 0; i < result.size(); i++)
-                MainActivity.this.lotsAdapter.add(result.get(i));
-//                MainActivity.this.lots[i] = result.get(i);
-//            Log.d(LOG_TAG, "Finished onPostExecute: " + Arrays.toString(MainActivity.this.lots));
+                MainActivity.this.lotsList.add(result.get(i));
+
             MainActivity.this.lotsAdapter.notifyDataSetChanged();
             Log.d(LOG_TAG, "Notified data set changed");
         }

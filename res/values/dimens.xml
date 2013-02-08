@@ -6,4 +6,6 @@
     <dimen name="spaces_total_text">10sp</dimen>
 
     <dimen name="edge_margin">6dp</dimen>
+    <dimen name="key_value_padding">15dp</dimen>
+
 </resources>
