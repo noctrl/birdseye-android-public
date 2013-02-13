@@ -19,6 +19,7 @@ public class Lot implements Parcelable{
     public Integer spacesTotal;
     public String description;
     public String location;
+    public String imageUrl;
 
     public Lot() {
         super();
@@ -33,6 +34,7 @@ public class Lot implements Parcelable{
             this.spacesTotal = jsonObject.getInt("total_spaces");
             this.description = jsonObject.getString("description");
             this.location = jsonObject.getString("location");
+            this.imageUrl = jsonObject.getString("image_url");
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Malformed JSON: " + jsonObject, e);
             this.name = "Broken";
@@ -54,12 +56,13 @@ public class Lot implements Parcelable{
         this.location = in.readString();
         this.spacesAvailable = in.readInt();
         this.spacesTotal = in.readInt();
+        this.imageUrl = in.readString();
     }
 
     @Override
     public String toString() {
         return "<Lot id="+this.id+", name="+this.name+", description="+this.description+", location="+location
-               +", spacesAvailable="+this.spacesAvailable+", spacesTotal="+this.spacesTotal+">";
+               +", spacesAvailable="+this.spacesAvailable+", spacesTotal="+this.spacesTotal+", "+this.imageUrl+">";
     }
 
     public static ArrayList<Lot> jsonArrayToLots(JSONArray jsonArray) {
@@ -88,6 +91,7 @@ public class Lot implements Parcelable{
         out.writeString(this.location);
         out.writeInt(this.spacesAvailable);
         out.writeInt(this.spacesTotal);
+        out.writeString(this.imageUrl);
     }
 
     public static final Parcelable.Creator CREATOR =

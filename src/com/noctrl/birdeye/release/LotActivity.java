@@ -2,16 +2,16 @@ package com.noctrl.birdeye.release;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.noctrl.birdeye.release.adapters.Lot;
-import com.noctrl.birdeye.release.http.RestClient;
-import org.json.JSONArray;
 
-import java.util.ArrayList;
+import java.net.URL;
 
 public class LotActivity extends Activity {
 
@@ -48,28 +48,25 @@ public class LotActivity extends Activity {
             this.spacesTotalTextView.setText(""+lot.spacesTotal);
         }
 
+        new LoadLotImageTask().execute(lot.imageUrl);
+
     }
 
-    private class LoadLotImage extends AsyncTask<Object, Object, ArrayList<Lot>> {
-        public static final String LOTS_RESOURCE = "http://api.birdseye.no-control.net/lots?all=true";
-
+    private class LoadLotImageTask extends AsyncTask <String, Object, Bitmap> {
         @Override
-        protected ArrayList<Lot> doInBackground(Object... objects) {
-            RestClient rc = new RestClient(LOTS_RESOURCE);
-            Object json = rc.get();
-            JSONArray lotsJsonArray = (JSONArray)json;
-            Log.d(LOG_TAG, "Cast to JSONArray done");
-            return Lot.jsonArrayToLots(lotsJsonArray);
+        protected Bitmap doInBackground(String... strings) {
+            try {
+                URL url = new URL(strings[0]);
+                return BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "BAD URL", e);
+            }
+            return null;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Lot> result) {
-            Log.d(LOG_TAG, "in onPostExecute: " + result.toString());
-            for(int i = 0; i < result.size(); i++)
-                return;
-
-//            LotActivity.this.lotsAdapter.notifyDataSetChanged();
-            Log.d(LOG_TAG, "Notified data set changed");
+        protected void onPostExecute(Bitmap bmp) {
+            LotActivity.this.lotImageView.setImageBitmap(bmp);
         }
     }
 
