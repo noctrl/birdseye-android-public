@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="lot_name_text">32sp</dimen>
+    <dimen name="lot_name_text">35sp</dimen>
     <dimen name="spaces_available_text">24sp</dimen>
     <dimen name="spaces_divider_text">34sp</dimen>
     <dimen name="spaces_total_text">10sp</dimen>
 
+    <dimen name="big_spaces_available_text">90sp</dimen>
+    <dimen name="big_spaces_divider_text">120sp</dimen>
+    <dimen name="big_spaces_total_text">70sp</dimen>
+
+    <dimen name="normal_text">20sp</dimen>
+    <dimen name="lot_list_spacing">20dp</dimen>
+
     <dimen name="edge_margin">6dp</dimen>
     <dimen name="key_value_padding">15dp</dimen>
+    <dimen name="vert_lot_padding">10dp</dimen>
 
 </resources>

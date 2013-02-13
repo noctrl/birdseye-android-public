@@ -38,20 +38,12 @@ public class MainActivity extends Activity{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Lot lot = (Lot)MainActivity.this.listView.getItemAtPosition(i);
-//                MainActivity.this.displayLotActivity(lot.name);
-//                Lot lot = MainActivity.this.lotsList.get(i);
                 MainActivity.this.displayLotActivity(lot);
             }
         });
         listView.setAdapter(this.lotsAdapter);
 
         new LoadLotsTask().execute();
-    }
-
-    public void displayLotActivity(String lotName) {
-        Intent intent = new Intent(this, LotActivity.class);
-        intent.putExtra(LotActivity.ARGS_LOT_NAME, lotName);
-        this.startActivity(intent);
     }
 
     public void displayLotActivity(Lot lot) {

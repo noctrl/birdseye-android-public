@@ -13,7 +13,8 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
             android:textSize="@dimen/lot_name_text"
-            android:typeface="serif"/>
+            android:typeface="serif"
+            android:layout_marginTop="@dimen/lot_list_spacing"/>
 
     <ScrollView
             android:layout_width="fill_parent"
@@ -25,36 +26,65 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:gravity="left">
 
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lotImageView"
+                    android:layout_marginTop="@dimen/lot_list_spacing"
+                    android:src="@drawable/loading_lot_image"
+                    android:scaleType="centerInside"
+                    android:cropToPadding="true"
+                    android:focusable="false"
+                    android:adjustViewBounds="true"
+                    android:focusableInTouchMode="false"/>
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lot_desc"
-                        android:id="@+id/textView"
-                        android:layout_weight="5"
-                        android:layout_gravity="left"
-                        android:layout_marginLeft="@dimen/edge_margin"
-                        android:layout_marginRight="@dimen/key_value_padding"/>
-
-                <TextView
+            <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/lotDescTextView"
+                        android:textSize="@dimen/normal_text"
                         android:layout_gravity="right"
-                        android:layout_marginRight="@dimen/edge_margin"/>
-            </LinearLayout>
+                        android:layout_marginLeft="@dimen/edge_margin"
+                        android:layout_marginRight="@dimen/edge_margin"
+                        android:layout_marginTop="@dimen/lot_list_spacing"/>
 
-            <LinearLayout
-                    android:orientation="horizontal"
+            <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-            </LinearLayout>
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="@dimen/lot_list_spacing">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60"
+                        android:id="@+id/bigSpacesAvailableTextView"
+                        android:textSize="@dimen/big_spaces_available_text"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/bigSpacesDividerTextView"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:id="@+id/bigSpacesDividerTextView"
+                        android:textSize="@dimen/big_spaces_divider_text"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:id="@+id/bigSpacesTotalTextView"
+                        android:textSize="@dimen/big_spaces_total_text"
+                        android:layout_toRightOf="@+id/bigSpacesDividerTextView"
+                        android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
