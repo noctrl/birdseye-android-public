@@ -30,17 +30,11 @@ public class MainActivity extends Activity{
         setContentView(R.layout.main);
 
         this.lotsList = new ArrayList<Lot>();
+        this.lotsList.add(new Lot("Loading...", 0, 0));
 
         this.lotsAdapter = new LotsAdapter(this, R.layout.main_scroll_entry, lotsList);
 
         this.listView = (ListView)findViewById(R.id.listView);
-        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Lot lot = (Lot)MainActivity.this.listView.getItemAtPosition(i);
-                MainActivity.this.displayLotActivity(lot);
-            }
-        });
         listView.setAdapter(this.lotsAdapter);
 
         new LoadLotsTask().execute();
@@ -67,8 +61,17 @@ public class MainActivity extends Activity{
         @Override
         protected void onPostExecute(ArrayList<Lot> result) {
             Log.d(LOG_TAG, "in onPostExecute: " + result.toString());
+            MainActivity.this.lotsList.remove(0);
             for(int i = 0; i < result.size(); i++)
                 MainActivity.this.lotsList.add(result.get(i));
+
+            MainActivity.this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Lot lot = (Lot)MainActivity.this.listView.getItemAtPosition(i);
+                    MainActivity.this.displayLotActivity(lot);
+                }
+            });
 
             MainActivity.this.lotsAdapter.notifyDataSetChanged();
             Log.d(LOG_TAG, "Notified data set changed");
