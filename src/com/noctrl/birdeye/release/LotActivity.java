@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,15 +49,18 @@ public class LotActivity extends Activity {
             this.spacesTotalTextView.setText(""+lot.spacesTotal);
         }
 
-        new LoadLotImageTask().execute(lot.imageUrl);
+        new LoadLotImageTask().execute(lot);
 
     }
 
-    private class LoadLotImageTask extends AsyncTask <String, Object, Bitmap> {
+    private class LoadLotImageTask extends AsyncTask <Lot, Object, Bitmap> {
         @Override
-        protected Bitmap doInBackground(String... strings) {
+        protected Bitmap doInBackground(Lot... lots) {
             try {
-                URL url = new URL(strings[0]);
+                Lot lot = lots[0];
+                URL url = new URL("https://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&center=" + lot.location + "&zoom=17"
+                                + "&size=800x400&scale=2&markers=size:normal|color:red|" + lot.location
+                                + "&sensor=false");
                 return BitmapFactory.decodeStream(url.openConnection().getInputStream());
             } catch (Exception e) {
                 Log.e(LOG_TAG, "BAD URL", e);
@@ -67,6 +71,7 @@ public class LotActivity extends Activity {
         @Override
         protected void onPostExecute(Bitmap bmp) {
             LotActivity.this.lotImageView.setImageBitmap(bmp);
+            LotActivity.this.lotImageView.setAdjustViewBounds(true);
         }
     }
 

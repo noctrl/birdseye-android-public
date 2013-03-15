@@ -62,7 +62,8 @@ public class Lot implements Parcelable{
     @Override
     public String toString() {
         return "<Lot id="+this.id+", name="+this.name+", description="+this.description+", location="+location
-               +", spacesAvailable="+this.spacesAvailable+", spacesTotal="+this.spacesTotal+", "+this.imageUrl+">";
+               +", spacesAvailable="+this.spacesAvailable+", spacesTotal="+this.spacesTotal+", "+this.imageUrl
+               +", location=" + this.location + ">";
     }
 
     public static ArrayList<Lot> jsonArrayToLots(JSONArray jsonArray) {
